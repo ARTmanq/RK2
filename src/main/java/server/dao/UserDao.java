@@ -32,11 +32,12 @@ public class UserDao implements Dao<User> {
                 .executeUpdate());
     }
 
-    public void update(@NotNull String userName) {
+    public void update(@NotNull String userName, String newName) {
         Database.doTransactional(session ->
-                session.createQuery("UPDATE User set name = :name WHERE name = :name")
-                .setParameter("name", userName)
-                .executeUpdate());
+                session.createQuery("UPDATE User SET name = :newName WHERE name = :name")
+                        .setParameter("name", userName)
+                        .setParameter("newName", newName)
+                        .executeUpdate());
     }
 
     public boolean passwordIsTrue(@NotNull String userName, @NotNull String password){

@@ -8,20 +8,19 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 /*
- curl -i -X GET -H "Host: localhost:8080" localhost:8080/data/leaderboard
+ curl -i -X GET -H "Host: localhost:8080" localhost:8080/data/leaderboard?count=4
 */
 
 @Path("/data")
 public class GetLeaders {
     private static final Logger log = LogManager.getLogger(GetUsers.class);
-    private static final int N = 3;
 
     @GET
     @Path("leaderboard")
     @Produces("application/json")
-    public Response getLeaders(){
+    public Response getLeaders(@QueryParam("count") int count){
         try {
-            return Response.ok("{leaders : "+ AuthDataStorage.writeLeadersJson(N) +"}").build();
+            return Response.ok("{leaders : "+ AuthDataStorage.writeLeadersJson(count) +"}").build();
         } catch (Exception e){
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }

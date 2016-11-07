@@ -86,23 +86,24 @@ public class AuthDataStorage{
         return tokenList.get(0).getUserName();
     }
 
-    public static String changeName(Token token, String new_name)
+    public static String changeName(Token token, String newName)
                                                     throws Exception{
         List<Token> tokenList = tokens.getAllWhere("id = '" + token.getId() + "'");
         String userName = tokenList.get(0).getUserName();
-        List<User> userList = credentials.getAllWhere("name = '"+userName+"'");
+        //List<User> userList = credentials.getAllWhere("name = '"+userName+"'");
         List<Leaderboard> scoreList = scores.getAllWhere("userName = '"+userName+"'");
 
-        credentials.update(userName);
+        credentials.update(userName, newName);
         /*userList.get(0).setName(new_name);
         credentials.insert(userList.get(0));*/
 
-        tokens.delete(token.getId());
-        tokenList.get(0).setUserName(new_name);
-        tokens.insert(tokenList.get(0));
+        tokens.update(token.getId(), newName);
+        /*tokens.delete(token.getId());
+        tokenList.get(0).setUserName(newName);
+        tokens.insert(tokenList.get(0));*/
 
         scores.delete(userName);
-        scoreList.get(0).setUserName(new_name);
+        scoreList.get(0).setUserName(newName);
         scores.insert(scoreList.get(0));
 
         return userName;

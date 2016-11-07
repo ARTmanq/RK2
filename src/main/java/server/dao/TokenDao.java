@@ -32,6 +32,14 @@ public class TokenDao implements Dao<Token>{
                 .executeUpdate());
     }
 
+    public void update(@NotNull Long id, String newName) {
+        Database.doTransactional(session ->
+                session.createQuery("UPDATE Token SET username = :newName WHERE id = :id")
+                        .setParameter("id", id)
+                        .setParameter("newName", newName)
+                        .executeUpdate());
+    }
+
     public boolean tokenExists(@NotNull Long id){
         try {
             List<Token> token = getAllWhere("id = '" + id + "'");
