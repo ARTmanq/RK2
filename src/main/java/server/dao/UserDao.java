@@ -32,7 +32,7 @@ public class UserDao implements Dao<User> {
                 .executeUpdate());
     }
 
-    public void update(@NotNull String userName, String newName) throws IllegalArgumentException{
+    public void updateName(@NotNull String userName, String newName) throws IllegalArgumentException{
         List<User> checkNewName = getAllWhere("name = '" + newName + "'");
         if(checkNewName.isEmpty()) {
             Database.doTransactional(session ->
@@ -43,6 +43,22 @@ public class UserDao implements Dao<User> {
         } else {
             throw (new IllegalArgumentException());
         }
+    }
+
+    public void updateEmail(@NotNull String userName, @NotNull String new_email) {
+        Database.doTransactional(session ->
+                session.createQuery("UPDATE User SET email = :new_email WHERE name = :name")
+                        .setParameter("name", userName)
+                        .setParameter("new_email", new_email)
+                        .executeUpdate());
+    }
+
+    public void updatePassword(@NotNull String userName, @NotNull String new_password) {
+        Database.doTransactional(session ->
+                session.createQuery("UPDATE User SET password = :new_password WHERE name = :name")
+                        .setParameter("name", userName)
+                        .setParameter("new_password", new_password)
+                        .executeUpdate());
     }
 
     public boolean passwordIsTrue(@NotNull String userName, @NotNull String password){

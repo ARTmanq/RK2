@@ -39,12 +39,6 @@ public class Token {
         userName = _userName;
     }
 
-    /*public Token(@NotNull String _userName, @NotNull Long _id){
-        this.id = _id;
-        date = new Date(System.currentTimeMillis());
-        userName = _userName;
-    }*/
-
     public Long getId(){ return id; }
     public Date getDate(){return new Date(date.getTime());}
     public String getUserName(){ return userName; }

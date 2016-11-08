@@ -90,24 +90,10 @@ public class AuthDataStorage{
                                                     throws Exception{
         List<Token> tokenList = tokens.getAllWhere("id = '" + token.getId() + "'");
         String userName = tokenList.get(0).getUserName();
-        //List<User> userList = credentials.getAllWhere("name = '"+userName+"'");
         List<Leaderboard> scoreList = scores.getAllWhere("userName = '"+userName+"'");
-        try {
-            credentials.update(userName, newName);
-            /*userList.get(0).setName(new_name);
-            credentials.insert(userList.get(0));*/
-            tokens.update(token.getId(), newName);
-            /*tokens.delete(token.getId());
-            tokenList.get(0).setUserName(newName);
-            tokens.insert(tokenList.get(0));*/
-            scores.update(userName, newName);
-            /*scores.delete(userName);
-            scoreList.get(0).setUserName(newName);
-            scores.insert(scoreList.get(0));*/
-        } catch (Exception e) {
-            throw e;
-        }
-
+        credentials.updateName(userName, newName);
+        tokens.updateName(token.getId(), newName);
+        scores.updateName(userName, newName);
         return userName;
     }
 
@@ -115,10 +101,7 @@ public class AuthDataStorage{
             throws Exception{
         List<Token> tokenList = tokens.getAllWhere("id = '" + token.getId() + "'");
         String userName = tokenList.get(0).getUserName();
-        List<User> userList = credentials.getAllWhere("name = '"+userName+"'");
-        credentials.delete(userName);
-        userList.get(0).setEmail(new_email);
-        credentials.insert(userList.get(0));
+        credentials.updateEmail(userName, new_email);
         return userName;
     }
 
@@ -126,10 +109,7 @@ public class AuthDataStorage{
             throws Exception{
         List<Token> tokenList = tokens.getAllWhere("id = '" + token.getId() + "'");
         String userName = tokenList.get(0).getUserName();
-        List<User> userList = credentials.getAllWhere("name = '"+userName+"'");
-        credentials.delete(userName);
-        userList.get(0).setPassword(new_password);
-        credentials.insert(userList.get(0));
+        credentials.updatePassword(userName, new_password);
         return userName;
     }
 

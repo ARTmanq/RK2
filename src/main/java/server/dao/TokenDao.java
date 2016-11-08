@@ -32,7 +32,7 @@ public class TokenDao implements Dao<Token>{
                 .executeUpdate());
     }
 
-    public void update(@NotNull Long id, String newName) throws IllegalArgumentException {
+    public void updateName(@NotNull Long id, String newName) throws IllegalArgumentException {
         List<Token> checkNewName = getAllWhere("username = '" + newName + "'");
         if(checkNewName.isEmpty()) {
             Database.doTransactional(session ->

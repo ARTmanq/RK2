@@ -100,7 +100,7 @@ public class ScoreDao implements Dao<Leaderboard> {
         }
     }
 
-    public void update(@NotNull String userName, @NotNull String newName) throws Exception {
+    public void updateName(@NotNull String userName, @NotNull String newName) throws Exception {
         List<Leaderboard> checkNewName = getAllWhere("username = '" + newName + "'");
         if (!checkNewName.isEmpty()) {
             throw (new IllegalArgumentException());
