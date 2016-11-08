@@ -33,21 +33,22 @@ public class UserDao implements Dao<User> {
     }
 
     public void update(@NotNull String userName, String newName) throws IllegalArgumentException{
-        try {
-            List<User> checkNewName = getAllWhere("name = " + newName);
-        } catch (Exception e) {
+        List<User> checkNewName = getAllWhere("name = '" + newName + "'");
+        if(checkNewName.isEmpty()) {
             Database.doTransactional(session ->
                     session.createQuery("UPDATE User SET name = :newName WHERE name = :oldname")
                             .setParameter("oldname", userName)
                             .setParameter("newName", newName)
                             .executeUpdate());
+        } else {
+            throw (new IllegalArgumentException());
         }
     }
 
     public boolean passwordIsTrue(@NotNull String userName, @NotNull String password){
         try {
             List<User> user = getAllWhere("name = '" + userName + "'");
-            return true;
+            return password.equals(user.get(0).getPassword());
         } catch (Exception e) {
             return false;
         }

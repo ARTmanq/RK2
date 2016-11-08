@@ -102,4 +102,74 @@ public class CurlRequests {
             log.warn("Something went wrong in logout.", e);
         }
     }
+
+    public static void changeEmail(Long token, String newEmail) {
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = RequestBody.create(
+                mediaType,
+                String.format("email=%s", newEmail)
+        );
+        String requestUrl = SERVICE_URL + "/profile/email";
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .post(body)
+                .addHeader("authorization", "Bearer " + token)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .build();
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            log.warn("Something went wrong in logout.", e);
+        }
+    }
+
+    public static void changePassword(Long token, String newPassword) {
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = RequestBody.create(
+                mediaType,
+                String.format("password=%s", newPassword)
+        );
+        String requestUrl = SERVICE_URL + "/profile/password";
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .post(body)
+                .addHeader("authorization", "Bearer " + token)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .build();
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            log.warn("Something went wrong in logout.", e);
+        }
+    }
+
+    public static String getLeaders(int n){
+        String requestUrl = SERVICE_URL + "/data/leaderboard?count=" + n;
+
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        } catch (IOException e) {
+            log.warn("Something went wrong in logout.", e);
+            return null;
+        }
+    }
+
+    public static String getUsers(){
+        String requestUrl = SERVICE_URL + "/data/users";
+
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        } catch (IOException e) {
+            log.warn("Something went wrong in logout.", e);
+            return null;
+        }
+    }
 }

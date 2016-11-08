@@ -9,9 +9,13 @@ public class AllTests {
 
     @Test
     public void allTests() {
-        //CurlRequests.register("super", "password");
+        CurlRequests.register("super", "password");
         Long token = CurlRequests.login("super", "password");
         CurlRequests.changeName(token, "superman");
-        /*CurlRequests.logOut(token);*/
+        CurlRequests.changeEmail(token, "mail@mail.ru");
+        CurlRequests.changePassword(token, "1234");
+        System.out.println(CurlRequests.getLeaders(3));
+        System.out.println(CurlRequests.getUsers());
+        CurlRequests.logOut(token);
     }
 }
