@@ -100,6 +100,21 @@ public class ScoreDao implements Dao<Leaderboard> {
         }
     }
 
+    public void update(@NotNull String userName, @NotNull String newName) throws Exception {
+        List<Leaderboard> checkNewName = getAllWhere("username = '" + newName + "'");
+        if (!checkNewName.isEmpty()) {
+            throw (new IllegalArgumentException());
+        } else {
+            try (Connection con = DbConnector.getConnection();
+                 Statement stm = con.createStatement()) {
+                stm.execute("UPDATE leaderboard SET username = '" + newName
+                        + "' WHERE username = '" + userName + "';");
+            } catch (SQLException sqle) {
+                throw sqle;
+            }
+        }
+    }
+
     private static Leaderboard mapToScore(ResultSet rs) throws SQLException {
         return new Leaderboard(rs.getString("userName"), rs.getInt("score"));
     }

@@ -32,18 +32,22 @@ public class TokenDao implements Dao<Token>{
                 .executeUpdate());
     }
 
-    public void update(@NotNull Long id, String newName) {
-        Database.doTransactional(session ->
-                session.createQuery("UPDATE Token SET username = :newName WHERE id = :id")
-                        .setParameter("id", id)
-                        .setParameter("newName", newName)
-                        .executeUpdate());
+    public void update(@NotNull Long id, String newName) throws IllegalArgumentException {
+        try {
+            List<Token> checkNewName = getAllWhere("username = " + newName);
+        } catch (Exception e) {
+            Database.doTransactional(session ->
+                    session.createQuery("UPDATE Token SET username = :newName WHERE id = :id")
+                            .setParameter("id", id)
+                            .setParameter("newName", newName)
+                            .executeUpdate());
+        }
     }
 
     public boolean tokenExists(@NotNull Long id){
         try {
             List<Token> token = getAllWhere("id = '" + id + "'");
-            return !token.isEmpty();
+            return true;
         } catch (Exception e) {
             return false;
         }

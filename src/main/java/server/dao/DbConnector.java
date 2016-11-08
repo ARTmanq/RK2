@@ -15,9 +15,9 @@ class DbConnector {
     private static final String URL;
     private static final String HOST = "54.224.37.210";
     private static final int PORT = 5432;
-    private static final String DB_NAME = "atom27_tinderdb";
-    private static final String USER = "atom27";
-    private static final String PASSWORD = "atom27";
+    private static final String DB_NAME = "atom8_tinderdb";
+    private static final String USER = "atom8";
+    private static final String PASSWORD = "atom8";
 
     static {
         try {
