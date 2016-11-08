@@ -23,13 +23,6 @@ public class User implements Serializable{
 
     public User() {}
 
-    public User(@NotNull String _name, @NotNull String _password, @NotNull String _email){
-        this.name = _name;
-        this.email = _email;
-        this.regdate = new Timestamp(System.currentTimeMillis());
-        this.password = _password;
-    }
-
     public User(@NotNull String _name, @NotNull String _password){
         this.name = _name;
         this.email = null;

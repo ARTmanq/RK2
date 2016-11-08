@@ -36,8 +36,8 @@ public class CurlRequests {
             OkHttpClient client = new OkHttpClient();
             Response response = client.newCall(request).execute();
             return response.isSuccessful();
-        } catch (IOException e) {
-            //log.warn("Something went wrong in register.", e);
+        } catch (Exception e) {
+            log.warn("Something went wrong in register.", e);
             return false;
         }
     }
@@ -58,7 +58,7 @@ public class CurlRequests {
         try {
             Response response = client.newCall(request).execute();
             return Long.parseLong(response.body().string());
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.warn("Something went wrong in login.", e);
             return null;
         }
@@ -78,7 +78,7 @@ public class CurlRequests {
                 .build();
         try {
             client.newCall(request).execute();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.warn("Something went wrong in logout.", e);
         }
     }
@@ -98,7 +98,7 @@ public class CurlRequests {
                 .build();
         try {
             client.newCall(request).execute();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.warn("Something went wrong in logout.", e);
         }
     }
@@ -118,7 +118,7 @@ public class CurlRequests {
                 .build();
         try {
             client.newCall(request).execute();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.warn("Something went wrong in logout.", e);
         }
     }
@@ -138,7 +138,7 @@ public class CurlRequests {
                 .build();
         try {
             client.newCall(request).execute();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.warn("Something went wrong in logout.", e);
         }
     }
@@ -152,7 +152,7 @@ public class CurlRequests {
         try {
             Response response = client.newCall(request).execute();
             return response.body().string();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.warn("Something went wrong in logout.", e);
             return null;
         }
@@ -167,7 +167,7 @@ public class CurlRequests {
         try {
             Response response = client.newCall(request).execute();
             return response.body().string();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.warn("Something went wrong in logout.", e);
             return null;
         }

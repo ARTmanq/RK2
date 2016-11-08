@@ -113,6 +113,30 @@ public class AuthDataStorage{
         return userName;
     }
 
+    public static List<User> getUsers(){
+        return credentials.getAll();
+    }
+
+    public static List<Token> getTokens(){
+        return tokens.getAll();
+    }
+
+    public static List<Leaderboard> getScores(){
+        return scores.getAll();
+    }
+
+    public static List<User> getUsersWhere(String condition){
+        return credentials.getAllWhere(condition);
+    }
+
+    public static List<Token> getTokensWhere(String condition){
+        return tokens.getAllWhere(condition);
+    }
+
+    public static List<Leaderboard> getScoresWhere(String condition){
+        return scores.getAllWhere(condition);
+    }
+
     public static boolean tokenExists(Long id) {
         return tokens.tokenExists(id);
     }
